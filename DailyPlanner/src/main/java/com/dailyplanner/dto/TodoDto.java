@@ -39,7 +39,7 @@ public class TodoDto {
     private Date targetDate;
     private Long userId;
     private Long remainingDaysToComplete;
-    @NotEmpty(message = "Email address not be null or empty")
-	@Email(message = "Email address should be valid")
-	private String email;
+    //@NotEmpty(message = "Email address not be null or empty")
+	//@Email(message = "Email address should be valid")
+	//private String email;
 }

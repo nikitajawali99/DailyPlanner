@@ -1,5 +1,6 @@
 package com.dailyplanner.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +27,7 @@ import com.dailyplanner.dto.TodoDto;
 import com.dailyplanner.entity.User;
 import com.dailyplanner.repository.UserRepository;
 import com.dailyplanner.service.TodoService;
+import com.dailyplanner.service.UserService;
 
 import jakarta.validation.Valid;
 
@@ -35,12 +39,17 @@ public class TodoController {
 	Logger log = LoggerFactory.getLogger(TodoController.class);
 
 	private final TodoService todoService;
-	
 	private final UserRepository userRepository;
+	private final UserDetailsService userDetailsService;
+	private final UserService userService;
 
-	public TodoController(TodoService todoService,UserRepository userRepository) {
+
+	public TodoController(TodoService todoService,UserRepository userRepository,
+			UserDetailsService userDetailsService,UserService userService) {
 		this.todoService = todoService;
 		this.userRepository=userRepository;
+		this.userDetailsService=userDetailsService;
+		this.userService=userService;
 	}
 	
 	   // http://localhost:8080/view/todos
@@ -73,7 +82,7 @@ public class TodoController {
     @PostMapping("/save")
     public String todo(@Valid @ModelAttribute("user") TodoDto todoDto,
                                BindingResult result,
-                               Model model){
+                               Model model,Principal principal){
         try {
         	log.info("Entering into TodoController :: todo");
 			
@@ -83,7 +92,14 @@ public class TodoController {
 			    return "/createTodo";
 			}
 			
-			User user=userRepository.findByEmail(todoDto.getEmail());
+			UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+
+			log.info("Entering into TodoController :: todo"+userDetails);
+			
+			User user = userService.findUserByEmail(userDetails.getUsername());
+
+			
+			//User user=userRepository.findByEmail(todoDto.getEmail());
 			
 			if(user!=null) {
 				
