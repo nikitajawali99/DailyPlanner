@@ -55,7 +55,7 @@ public class LoginRegisterationController {
 		
 		ContactDto contact = new ContactDto();
 		model.addAttribute("contact", contact);
-		System.out.println("contact here");
+		
 		return "contact";
 	}
 	
@@ -65,7 +65,7 @@ public class LoginRegisterationController {
 		try {
 
 			log.info("Entering into AuthController :: registration");
-			System.out.println("contact dto :"+contact);
+			
 			
 			log.info("Entering into AuthController :: hasErrors");
 			if (result.hasErrors()) {

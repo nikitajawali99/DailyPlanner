@@ -124,7 +124,7 @@ public class AuthController {
 		public String updateTodo(@PathVariable("id") Long id, @Valid @ModelAttribute("user") TodoDto userDto,
 				BindingResult result, Model model) {
 
-			System.out.println("Inside updatetodo ::");
+			
 //			if (result.hasErrors()) {
 //				System.out.println("Inside updateStudent error:"+result.getErrorCount());
 //				model.addAttribute("user", userDto);
@@ -132,7 +132,7 @@ public class AuthController {
 //			}
 			
 			if (result.hasErrors()) {
-				System.out.println("Inside updateStudent error:"+result.getErrorCount());
+				
 				model.addAttribute("user", userDto);
 				return "edit-todo";
 			} else {
@@ -155,7 +155,6 @@ public class AuthController {
 		
 		try {
 
-		System.out.println("Inside updateStudent ::");
 		
 		User existingId = userRepository.findByUserId(id);
 

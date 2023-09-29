@@ -90,7 +90,7 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public TodoDto updateTodo(TodoDto todoDto, Long id) {
 		
-		System.out.println("TodoServiceImp ::");
+	
 
 		Todo todo = todoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Todo not found with id : " + id));
