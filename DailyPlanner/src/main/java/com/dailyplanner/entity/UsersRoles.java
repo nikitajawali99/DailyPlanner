@@ -15,7 +15,7 @@ public class UsersRoles {
 	@Id
 	@Column(nullable = false, unique = true)
 	private Long user_id;
-	
+
 	@Column(nullable = false, unique = true)
 	private Long role_id;
 

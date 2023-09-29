@@ -25,7 +25,6 @@ import lombok.ToString;
 @Table(name = "contact")
 public class Contact {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;

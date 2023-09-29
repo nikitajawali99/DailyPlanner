@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 
-
 @ToString
 @Getter
 @Setter
@@ -24,7 +23,7 @@ public class User {
 
 	@Column(nullable = false)
 	private String name;
-	
+
 	@Column(nullable = false)
 	private boolean enabled;
 
@@ -44,7 +43,6 @@ public class User {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/mm/yyyy")
 	@Column(nullable = false)
 	private Date createdDate;
-
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", updatable = false, insertable = false))

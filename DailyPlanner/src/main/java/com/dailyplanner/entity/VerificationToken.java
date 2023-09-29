@@ -23,24 +23,21 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 public class VerificationToken {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String token;
 	private Date expirationTime;
 	@OneToOne
-	@JoinColumn(name="id")
+	@JoinColumn(name = "id")
 	private User user;
-	
+
 	public VerificationToken(String token, User user) {
 		super();
 		this.token = token;
 		this.user = user;
-		this.expirationTime=TokenExpirationTime.getExpirationTime();
+		this.expirationTime = TokenExpirationTime.getExpirationTime();
 	}
-	
-	
 
 }

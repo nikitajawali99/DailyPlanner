@@ -9,5 +9,6 @@ public class DailyPlannerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DailyPlannerApplication.class, args);
 	}
+	
 
 }
