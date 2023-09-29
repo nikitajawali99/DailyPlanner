@@ -47,9 +47,11 @@ public class TodoController {
 		@RequestMapping("/todos")
 		public String todos(Model model) {
 
+			log.info("Entering into TodoController :: todos");
 			List<TodoDto> todos = todoService.getAllTodos();
 
 			model.addAttribute("todos", todos);
+			log.info("Exiting into TodoController :: todos");
 			return "todos.html";
 		}
 	
@@ -57,11 +59,11 @@ public class TodoController {
 	@PreAuthorize("hasRole('USER')")
     @GetMapping("/createTodo")
     public String createTodo(Model model){
-    	log.info("Entering into AuthController :: createTodo");
+    	log.info("Entering into TodoController :: createTodo");
         // create model object to store form data
         TodoDto user = new TodoDto();
         model.addAttribute("user", user);
-        log.info("Exiting into AuthController :: createTodo");
+        log.info("Exiting into TodoController :: createTodo");
         return "createTodo";
     }
 	
@@ -73,9 +75,9 @@ public class TodoController {
                                BindingResult result,
                                Model model){
         try {
-        	log.info("Entering into AuthController :: registration");
+        	log.info("Entering into TodoController :: todo");
 			
-			log.info("Entering into AuthController :: hasErrors");
+			
 			if(result.hasErrors()){
 			    model.addAttribute("user", todoDto);
 			    return "/createTodo";
@@ -91,10 +93,9 @@ public class TodoController {
 				return "redirect:/todos/createTodo?existingNoEmail";
 			}
 			
-			log.info("Entering into AuthController :: saveUser");
 			todoService.addTodo(todoDto);
-			log.info("Exiting into AuthController :: saveUser");
-			  log.info("Exiting into AuthController :: registration");
+			log.info("Exiting into TodoController :: todo");
+		
 			return "redirect:/user-view";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -145,7 +146,9 @@ public class TodoController {
 	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@PatchMapping("{id}/complete")
 	public ResponseEntity<TodoDto> completeTodo(@PathVariable("id") Long todoId) {
+		log.info("Entering into TodoController :: completeTodo");
 		TodoDto updatedTodo = todoService.completeTodo(todoId);
+		log.info("Exiting into TodoController :: completeTodo");
 		return ResponseEntity.ok(updatedTodo);
 	}
 

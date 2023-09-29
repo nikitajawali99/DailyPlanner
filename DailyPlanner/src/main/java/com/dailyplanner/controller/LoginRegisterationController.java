@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 @CrossOrigin("*")
 public class LoginRegisterationController {
 	
-	Logger log = LoggerFactory.getLogger(AuthController.class);
+	Logger log = LoggerFactory.getLogger(LoginRegisterationController.class);
 
 	private UserService userService;
 	private final ContactRepository contactRepository;
@@ -38,24 +38,25 @@ public class LoginRegisterationController {
 	
 	@GetMapping("/index")
 	public String home() {
+		log.info("Entering into LoginRegisterationController :: index");
 		return "index";
 	}
 
 	@GetMapping("/login")
 	public String login(Model model) {
-		log.info("Entering into AuthController :: login");
+		log.info("Entering into LoginRegisterationController :: login");
 		UserDto user = new UserDto();
 		model.addAttribute("user", user);
-		log.info("Exiting into AuthController :: login");
+		log.info("Exiting into LoginRegisterationController :: login");
 		return "login";
 	}
 	
 	@GetMapping("/contact")
 	public String contact(Model model) {
-		
+		log.info("Entering into LoginRegisterationController :: contact");
 		ContactDto contact = new ContactDto();
 		model.addAttribute("contact", contact);
-		
+		log.info("Exiting into LoginRegisterationController :: contact");
 		return "contact";
 	}
 	
@@ -64,10 +65,8 @@ public class LoginRegisterationController {
 
 		try {
 
-			log.info("Entering into AuthController :: registration");
+			log.info("Entering into LoginRegisterationController :: contactSave");
 			
-			
-			log.info("Entering into AuthController :: hasErrors");
 			if (result.hasErrors()) {
 				model.addAttribute("contact", contact);
 				return "/contact";
@@ -80,6 +79,7 @@ public class LoginRegisterationController {
 				c.setNumber(contact.getNumber());
 				c.setMessage(contact.getMessage());
 				contactRepository.save(c);
+				log.info("Exiting into LoginRegisterationController :: contactSave");
 				return "redirect:/contact?success";
 			}
 
@@ -95,12 +95,12 @@ public class LoginRegisterationController {
 		@GetMapping("/register")
 		public String showRegistrationForm(Model model) {
 
-			log.info("Entering into AuthController :: showRegistrationForm");
+			log.info("Entering into LoginRegisterationController :: showRegistrationForm");
 
 			UserDto user = new UserDto();
 			model.addAttribute("user", user);
 
-			log.info("Exiting into AuthController :: showRegistrationForm");
+			log.info("Exiting into LoginRegisterationController :: showRegistrationForm");
 			return "register";
 		}
 		
@@ -110,7 +110,7 @@ public class LoginRegisterationController {
 
 			try {
 
-				log.info("Entering into AuthController :: registration");
+				log.info("Entering into LoginRegisterationController :: registration");
 				User existingEmail = userService.findUserByEmail(userDto.getEmail());
 
 				if (existingEmail != null && existingEmail.getEmail() != null && !existingEmail.getEmail().isEmpty()) {
@@ -123,7 +123,7 @@ public class LoginRegisterationController {
 					}
 				}
 
-				log.info("Entering into AuthController :: hasErrors");
+				log.info("Entering into LoginRegisterationController :: hasErrors");
 				if (result.hasErrors()) {
 					model.addAttribute("user", userDto);
 					return "/register";
@@ -131,7 +131,7 @@ public class LoginRegisterationController {
 
 				userService.saveUser(userDto);
 
-				log.info("Exiting into AuthController :: registration");
+				log.info("Exiting into LoginRegisterationController :: registration");
 				return "redirect:/register?success";
 			} catch (Exception e) {
 
