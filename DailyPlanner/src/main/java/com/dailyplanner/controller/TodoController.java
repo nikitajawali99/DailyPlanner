@@ -150,13 +150,13 @@ public class TodoController {
 	
 	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("/deleteTodoById/{id}")
-	public ResponseEntity<String> deleteTodoById(@PathVariable("id") Long todoId) {
+	public String deleteTodoById(@PathVariable("id") Long todoId) {
 		log.info("Entering into TodoController :: deleteTodoById");
 		
 		
 		todoService.deleteTodo(todoId);
 		log.info("Exiting into TodoController :: deleteTodoById");
-		return ResponseEntity.ok("Todo deleted successfully!!");
+		return "redirect:/user-view";
 	}
 
 	@PreAuthorize("hasAnyRole('ADMIN','USER')")
