@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-              git url: 'https://github.com/nikitajawali99/DailyPlanner.git'      
+              git branch: 'main', url: 'https://github.com/nikitajawali99/DailyPlanner.git'      
 		            echo "Code Checked-out Successfully!!";
             }
         }
