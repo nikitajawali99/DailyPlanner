@@ -72,10 +72,10 @@ pipeline {
       stage('Deployment') {
             steps {
               dir("${env.WORKSPACE}/DailyPlanner"){
-             
-		            echo "Maven Package Goal Executed Successfully!";
+      
 		             deploy adapters: [tomcat9(url: 'http://localhost:9090/', credentialsId: 'Tomcat-cred')],war: '**/*.war',
-                     contextPath: 'jenkinsTest'
+                     contextPath: 'DailyPlanner'
+		        echo "Tomcat deployment Executed Successfully!";
               }
             }
         }
