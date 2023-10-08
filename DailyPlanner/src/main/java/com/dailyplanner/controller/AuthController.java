@@ -131,11 +131,6 @@ public class AuthController {
 			BindingResult result, Model model) {
 
 		log.info("Entering into AuthController :: updateTodo");
-//			if (result.hasErrors()) {
-//				System.out.println("Inside updateStudent error:"+result.getErrorCount());
-//				model.addAttribute("user", userDto);
-//				return "edit-user";
-//			}
 
 		if (result.hasErrors()) {
 

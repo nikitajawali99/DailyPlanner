@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.dailyplanner.controller.TodoController;
 import com.dailyplanner.dto.TodoDto;
 import com.dailyplanner.entity.User;
-import com.dailyplanner.repository.UserRepository;
 import com.dailyplanner.service.TodoService;
 import com.dailyplanner.service.UserService;
 
@@ -39,15 +38,13 @@ public class TodoController {
 	Logger log = LoggerFactory.getLogger(TodoController.class);
 
 	private final TodoService todoService;
-	private final UserRepository userRepository;
 	private final UserDetailsService userDetailsService;
 	private final UserService userService;
 
 
-	public TodoController(TodoService todoService,UserRepository userRepository,
+	public TodoController(TodoService todoService,
 			UserDetailsService userDetailsService,UserService userService) {
 		this.todoService = todoService;
-		this.userRepository=userRepository;
 		this.userDetailsService=userDetailsService;
 		this.userService=userService;
 	}
