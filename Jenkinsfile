@@ -79,23 +79,29 @@ pipeline {
               }
             }
         }
+		
+		  post {
+      
+      always{
+          emailext(
+            
+              subject: "Pipeline Status: ${BUILD_NUMBER}",
+              body: '''<html>
+                        <body>
+                            <p>Build Status: ${BUILD_STATUS}</p>
+                            <p>Build Number: ${BUILD_NUMBER}</p>
+                            <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
+                        </body>
+                    </html>''',
+              to: 'nikitajawali06@gmail.com',
+              from: 'nikitajawali99@gmail.com',
+              replyTo: 'nikitajawali99@gmail.com',
+              mimeType: 'text/html'
+        )
+      
+    }
+}
         
     }
-    post {
-        
-        success {
-            
-         mail bcc: '', body: '''echo "Build id is - $BUILD_ID"
-         echo "Build URL is - $BUILD_URL"''', cc: 'nikitajawali06@gmail.com',
-         from: '', replyTo: '', subject: '${currentBuild.result}', to: 'nikitajawali99@gmail.com'
-            
-         echo 'This will run only if successful'
-         
-        }
-        failure {
-            
-            echo 'This will run only if failed'
-        }
-    
-    }
+   
 }
