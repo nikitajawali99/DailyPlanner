@@ -80,7 +80,11 @@ pipeline {
             }
         }
 		
-		  post {
+		 
+        
+    }
+	
+	 post {
       
       always{
           emailext(
@@ -101,7 +105,5 @@ pipeline {
       
     }
 }
-        
-    }
    
 }
